@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yandex-contest-concat", "yandex-contest-concat.vcxproj", "{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Out|x64 = Out|x64
+		Out|x86 = Out|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}.Debug|x64.ActiveCfg = Debug|x64
+		{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}.Debug|x64.Build.0 = Debug|x64
+		{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}.Debug|x86.ActiveCfg = Debug|Win32
+		{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}.Debug|x86.Build.0 = Debug|Win32
+		{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}.Out|x64.ActiveCfg = Out|x64
+		{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}.Out|x64.Build.0 = Out|x64
+		{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}.Out|x86.ActiveCfg = Out|Win32
+		{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}.Out|x86.Build.0 = Out|Win32
+		{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}.Release|x64.ActiveCfg = Release|x64
+		{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}.Release|x64.Build.0 = Release|x64
+		{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}.Release|x86.ActiveCfg = Release|Win32
+		{069AFFAC-A7E6-4DF7-A5D0-60DB9691CA40}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8A1E6D7-652F-4719-9768-D5F538ECE8C0}
+	EndGlobalSection
+EndGlobal

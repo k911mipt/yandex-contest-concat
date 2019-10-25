@@ -51,8 +51,6 @@ int test();
 
 ## TODO
 
-* [ ] Prevent multiincluding
-* [ ] `make`, `make install`, `make unistall`
 * [ ] Relative paths handling
 
 ___

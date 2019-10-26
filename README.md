@@ -1,6 +1,6 @@
 # yandex-contest-concat
 
-Simple c++ preprocessor for **Yandex Contest**
+Simple c++ preprocessor for [**Yandex Contest**](https://contest.yandex.ru/contest)
 
 ## Problem
 
@@ -35,18 +35,23 @@ Usage:
 yandex-contest-concat.exe input_file output_file
 ```
 
-Sample inluded: `yandex-contest-concat.exe test.cpp out.cpp`
+Sample included: `yandex-contest-concat.exe test.cpp out.cpp`
 
-As for now this tool does not perform circularity checks and multiincluding checks. So you must guard all your `.h` files like this
+included files are bordered with regions
 
 ```c++
-#ifndef TEST_H_
-#define TEST_H_
+#pragma region "file_name.h"
+// body
+#pragma endregion "file_name.h"
+```
 
+This tool **will not** include same file twice, ~~so you don't need to care about guarding headers~~ you still must always care about guarding headers anyway
 
-int test();
-
-#endif // TEST_H_
+```c++
+#ifndef FILENAME_H_
+#define FILENAME_H_
+// body
+#endif // FILENAME_H_
 ```
 
 ## TODO

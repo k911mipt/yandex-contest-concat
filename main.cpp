@@ -5,24 +5,20 @@
 #include <unordered_set>
 
 using std::string;
-using std::cin;
 using std::cout;
 using std::endl;
-using std::ifstream;
-using std::ofstream;
-using std::getline;
-using std::regex;
 using std::regex_match;
 
-enum LineAction : bool {
+enum LineAction {
     SKIP_LINE,
-    WRITE_LINE
+    WRITE_LINE,
+    PASS
 };
 
 LineAction ProcessLine(const string& line);
 
 void ParseFile(const string& source_file) {
-    ifstream input_stream(source_file);
+    std::ifstream input_stream(source_file);
     string line;
     if (input_stream) {
         while (std::getline(input_stream, line)) {
@@ -33,25 +29,29 @@ void ParseFile(const string& source_file) {
     }
 }
 
-const regex re_include_local_filename("#include[[:space:]]*?\"(.*?)\"\r?");
-const regex re_include_global_filename("#include[[:space:]]*?<(.*?)>\r?");
-const regex re_pragma_once("#pragma once\r?");
+const std::regex re_include_local_filename("#include[[:space:]]*?\"(.*?)\"\r?");
+const std::regex re_include_global_filename("#include[[:space:]]*?<(.*?)>\r?");
+const std::regex re_pragma_once("#pragma once\r?");
 std::unordered_set<string> included_local_files;
 std::unordered_set<string> included_global_files;
+string begin_include = "#pragma region ";
+string end_include = "#pragma endregion ";
+std::smatch match;
 
-LineAction ProcessLine(const string& line) {
-    std::smatch match;
-    // Check including local files
+LineAction CheckLocalInclude(const string& line) {
     if (regex_match(line, match, re_include_local_filename)) {
         const std::string file_name = match[1];
         if (included_local_files.insert(file_name).second) {
-            cout << endl << "// BEGIN INCLUDING " << file_name << endl;
+            cout << endl << begin_include << "\"" << file_name << "\"" << endl;
             ParseFile(file_name);
-            cout << "// END INCLUDING " << file_name << endl << endl;
+            cout << end_include << "\"" << file_name << "\"" << endl;
         }
         return SKIP_LINE;
     }
-    // Check including global file
+    return PASS;
+}
+
+LineAction CheckGlobalInclude(const string& line) {
     if (regex_match(line, match, re_include_global_filename)) {
         const std::string file_name = match[1];
         if (included_global_files.insert(file_name).second) {
@@ -59,10 +59,24 @@ LineAction ProcessLine(const string& line) {
         }
         return SKIP_LINE;
     }
-    // skip windows #pragma once
+    return PASS;
+}
+
+LineAction CheckPragmaOnce(const string& line) {
     if (regex_match(line, match, re_pragma_once)) {
         return SKIP_LINE;
     }
+    return PASS;
+}
+
+LineAction ProcessLine(const string& line) {
+    LineAction result;
+    if ((result = CheckLocalInclude(line)) != PASS)
+        return result;
+    if ((result = CheckGlobalInclude(line)) != PASS)
+        return result;
+    if ((result = CheckPragmaOnce(line)) != PASS)
+        return result;
     return WRITE_LINE;
 }
 
@@ -80,7 +94,7 @@ int main(int argc, char** argv) {
 #endif // !DEBUG
     cout << "input: " << in_file << endl;
     cout << "output: " << out_file << endl;
-    ofstream output_stream(out_file);
+    std::ofstream output_stream(out_file);
     cout.rdbuf(output_stream.rdbuf());
     ParseFile(in_file);
 }
